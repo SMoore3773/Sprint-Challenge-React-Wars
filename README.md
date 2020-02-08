@@ -24,24 +24,38 @@ In this challenge, create a web page that presents a styled list of Star Wars ch
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
 
-- [ ] What is React JS and what problems does it try and solve? Support your answer with concepts introduced in class and from your personal research on the web.
+- [x] What is React JS and what problems does it try and solve? Support your answer with concepts introduced in class and from your personal research on the web.
 
-- [ ] What does it mean to _think_ in react?
+ React JS is an interface component library that allows us to deal with multiple components ans their states in a streamlined manner. React allows us to write and organize a component within a single JS file instead of three separate files (one for html, css, and JS). With react we can write a function that will, in effect, build out all three parts to a component of a webpage. We can then stack these functions into an app or index file that will then insert our code into the DOM. React also allows us to create dynamic parts to the webpage that will update in real time, without the need for a page refresh. This allows things to be more streamlined, faster, and less intensive on bandwidth. To do this, react uses a 'virtual DOM' where it makes changes to an iteration of the current DOM and checks for changes against the actual DOM, and from there makes changes to the actual DOM in real time. 
 
-- [ ] Describe state.
 
-- [ ] Describe props.
+- [x] What does it mean to _think_ in react?
 
-- [ ] What are side effects, and how do you sync effects in a React component to state or prop changes?
+ Thinking in react is a way of breaking down a project into components and thinking about how they can be separated and built. This means looking at what data needs to be represented, and then organizing it in a way that each part can be its own component, doing one job. You need to identify what that component is supposed to do, then set it up with the tools to do its job. Once the framework for the app has been set up, then a static representation can be built, and after that the tools for passing dynamic data through each element can be set up. This leads to a srtamlined app where each component can be quickly identifiable and changed if needed.
+
+
+- [x] Describe state.
+
+ State keeps track of data that is currently on the page. We can watch current data for changes, and then have our code act on changes to the change in data and update the page accordingly. State keeps track of the current information and utilizes the virtual DOM to check current information against original information. We use state to make dynamic parts to a page that can  be interactive.
+
+
+- [x] Describe props.
+
+ Props are properties that we pass from one component to another. When we have data within our main component and we need to pass it to another component because it will work within another component we can define parts of that data and then pass it as an object to the other component. Within our use of the lesser component being called inside of the app function, we can define parts of that data that can be passed. Within the branch component we can then use that object that we've passed as a parameter in the function that is creating the component; and the data that gets used in the component is then exported back to be displayed in the main application.
+
+
+- [x] What are side effects, and how do you sync effects in a React component to state or prop changes?
+
+ Component side effects are functions that run on the page. The function is set to run once on page load, and then with a dependance arry we can then define when the funcion gets run again. Using the dependancy array lets us gain control over the function that is running. We need this array so that whatever function is run cannot form an infnite loop that could cause browser or bandwidth issues. We can set the dependancy array to look for changes in props or state and react dynamically with changes to either of those. 
 
 ## Project Set Up
 
 Follow these steps to set up and work on your project:
 
-- [ ] Create a forked copy of this project.
-- [ ] Add TL as collaborator on Github.
-- [ ] Clone your OWN version of Repo. **(Not Lambda's by mistake!)**
-- [ ] Create a new Branch locally: `git checkout -b <firstName-lastName>`.
+- [x] Create a forked copy of this project.
+- [x] Add TL as collaborator on Github.
+- [x] Clone your OWN version of Repo. **(Not Lambda's by mistake!)**
+- [x] Create a new Branch locally: `git checkout -b <firstName-lastName>`.
 - [ ] Change directories into `./starwars` (`cd starwars`) and run `yarn install` or `npm install` to retrieve all needed dependencies.
 - [ ] Once you have installed the _node_modules_, run `yarn start` or `npm start` to get your server up and running.
 - [ ] With the server up and running, open Chrome and head over to `localhost:3000` and view your beautiful app. Maybe it's not _that_ pretty... _yet_, your goal is to ensure this project becomes a thing of beauty.
