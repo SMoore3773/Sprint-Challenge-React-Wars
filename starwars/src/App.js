@@ -10,26 +10,26 @@ const App = () => {
   const [charList, setCharList] = useState();
   const [person, setPerson] = useState(1)
   const [personProf, setPersonProf] = useState({})
-  useEffect(() => {
-    axios
-        .get(`https://swapi.co/api/people/${person}`)
-        .then(response =>{
+//   useEffect(() => {
+//     axios
+//         .get(`https://swapi.co/api/people/${person}`)
+//         .then(response =>{
 
-          // console.log(response.data);
-          setPersonProf(response.data);
+//           // console.log(response.data);
+//           setPersonProf(response.data);
           
-        })
-        .catch(err => {
-            console.log('Error:', err);
-        });
+//         })
+//         .catch(err => {
+//             console.log('Error:', err);
+//         });
 
-}, [person])
+// }, [person])
 useEffect(() => {
   axios
       .get(`https://swapi.co/api/people/`)
       .then(response =>{
 
-        console.log(response.data.results);
+        console.log(response.data.results[0].url);
         setCharList(response.data.results);
         
       })
@@ -37,7 +37,7 @@ useEffect(() => {
           console.log('Error:', err);
       });
 
-}, [])
+},[])
 
   const App = styled.div`
     text-align: center;
@@ -60,7 +60,7 @@ width: 45%;
   // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
-
+console.log(charList);
   return (
     <App>
       <Header />
@@ -68,20 +68,67 @@ width: 45%;
       key = {person.id}
       person = {person}
       setPerson = {setPerson}
-
       />
+      
       <CardBox>
 
-        {charList.map(per =>(
 
+        {/* {charList.map(char => (
+          
           <CharacterCard 
-          
-          
-          
-          
+            key = {char.id}
+            url = {char.url} 
           />
+        ))}  */}
+        
+        </CardBox>
 
-        ))}
+
+
+
+        {/* {charList.map(personProf =>{
+            
+          <CharacterCard 
+          key={personProf.id}
+          name = {personProf.name}
+          homeworld = {personProf.homeworld}
+          species = {personProf.species}
+          birthYear = {personProf.birth_year}
+          gender = {personProf.gender}
+          height = {personProf.height}
+          mass = {personProf.mass}
+          films = {personProf.films}
+          /> */}
+
+
+        
+      
+
+        {/* {
+        Object.keys(charList).forEach(key =>{
+          const charByKey = personProf[key];
+
+
+          charByKey.map(per =>(
+
+            <CharacterCard 
+            key={per.id}
+            name = {per.name}
+            homeworld = {per.homeworld}
+            species = {per.species}
+            birthYear = {per.birth_year}
+            gender = {per.gender}
+            height = {per.height}
+            mass = {per.mass}
+            films = {per.films}
+            />
+  
+          ))
+        })
+        
+      } */}
+
+
       {/* {charList.forEach(i =>{
         
         const [personProf, setPersonProf] = useState({})
@@ -115,7 +162,7 @@ width: 45%;
         />
       })} */}
 
-      </CardBox>
+      
       {/* <CharacterCard 
       key={personProf.id}
       name = {personProf.name}
