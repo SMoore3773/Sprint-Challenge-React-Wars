@@ -1,5 +1,6 @@
 import React, {useState, useEffect,} from 'react';
 import styled from 'styled-components';
+import Films from './Films';
 import axios from 'axios';
 
 const CharacterCard = props => {
@@ -9,7 +10,7 @@ const [spe, setSpe] = useState()
     axios
     .get(props.homeworld)
     .then(response =>{
-        console.log(response.data) 
+        // console.log(response.data) 
         setHw(response.data.name);  
     })
     .catch(err => {console.log('Error:', err);});
@@ -18,11 +19,12 @@ const [spe, setSpe] = useState()
         axios
         .get(props.species)
         .then(response =>{
-            console.log(response.data) 
+            // console.log(response.data) 
             setSpe(response.data.name);  
         })
         .catch(err => {console.log('Error:', err);});
         }, [])
+
 
     return (
         <div>
@@ -31,9 +33,12 @@ const [spe, setSpe] = useState()
             <p>Species: {spe}</p>
             <p>Birth Year: {props.birthYear}</p>
             <p>{props.gender}</p>
-            <p>{props.height}</p>
-            <p>{props.mass}</p>
-            <p>films</p>
+            <p>Height: {props.height}cm</p>
+            <p>Mass: {props.mass}Kg</p>
+            <Films 
+            key = {props.id}
+            films = {props.films}
+            />
             
 
         </div>

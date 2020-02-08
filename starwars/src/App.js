@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import PersonButtons from './components/PersonButtons'
 
 const App = () => {
-  const [charList, setCharList] = useState([]);
+  const [charList, setCharList] = useState();
   const [person, setPerson] = useState(1)
   const [personProf, setPersonProf] = useState({})
   useEffect(() => {
@@ -15,10 +15,8 @@ const App = () => {
         .get(`https://swapi.co/api/people/${person}`)
         .then(response =>{
 
-          console.log(response.data);
+          // console.log(response.data);
           setPersonProf(response.data);
-          
-
           
         })
         .catch(err => {
@@ -26,12 +24,36 @@ const App = () => {
         });
 
 }, [person])
+useEffect(() => {
+  axios
+      .get(`https://swapi.co/api/people/`)
+      .then(response =>{
+
+        console.log(response.data.results);
+        setCharList(response.data.results);
+        
+      })
+      .catch(err => {
+          console.log('Error:', err);
+      });
+
+}, [])
 
   const App = styled.div`
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
   `
+  const CardBox = styled.div`
+  display:flex;
+  flex-direction: row;
+  flex-flow:wrap;
+  `
+const CharacterCard = styled.div`
+width: 45%;
+`
+  
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
@@ -40,15 +62,61 @@ const App = () => {
   // sync up with, if any.
 
   return (
-    <App className="App">
+    <App>
       <Header />
       <PersonButtons 
       key = {person.id}
       person = {person}
       setPerson = {setPerson}
-      
+
       />
-      <CharacterCard 
+      <CardBox>
+
+        {charList.map(per =>(
+
+          <CharacterCard 
+          
+          
+          
+          
+          />
+
+        ))}
+      {/* {charList.forEach(i =>{
+        
+        const [personProf, setPersonProf] = useState({})
+        useEffect(() => {
+          axios
+              .get(`https://swapi.co/api/people/${i}`)
+              .then(response =>{
+      
+                // console.log(response.data);
+                setPersonProf(response.data);
+                
+              })
+              .catch(err => {
+                  console.log('Error:', err);
+              });
+      
+      }, [person])
+
+
+
+        <CharacterCard 
+        key={personProf.id}
+        name = {personProf.name}
+        homeworld = {personProf.homeworld}
+        species = {personProf.species}
+        birthYear = {personProf.birth_year}
+        gender = {personProf.gender}
+        height = {personProf.height}
+        mass = {personProf.mass}
+        films = {personProf.films}
+        />
+      })} */}
+
+      </CardBox>
+      {/* <CharacterCard 
       key={personProf.id}
       name = {personProf.name}
       homeworld = {personProf.homeworld}
@@ -58,10 +126,7 @@ const App = () => {
       height = {personProf.height}
       mass = {personProf.mass}
       films = {personProf.films}
-
-
-
-      />
+      /> */}
 
     </App>
   );
