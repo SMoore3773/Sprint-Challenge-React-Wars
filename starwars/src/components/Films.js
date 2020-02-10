@@ -4,33 +4,33 @@ import axios from 'axios';
 
 
 const Films = props => {
-    // console.log(props);
-    Object.keys(props).forEach(key =>{
-        const filmByKey = props[key]
-        // console.log(filmByKey)
-        
-    })
-    // function nameGet(url){
-    //     useEffect(() => {
-    //         axios
-    //         .get(url)
-    //         .then(response => {
-
-    //         })
-    //     })
-    // }
+    const [films, setFilms] = useState()
+    useEffect(()=>{
+        axios
+        .get(props.filmsList)
+        .then(res=>{
+            setFilms(res.data.title)
+        })
+        .catch(err =>{
+            console.log('error:',err)
+        })
+    },[])
     const FilmBox = styled.ul`
     display: flex;
     flex-direction: column;
+    list-style-type: none;
+
     `
-    const FilmLink = styled.a`
-    margin: 10px;
-    padding: 20px;
+    const FilmLink = styled.li`
+    margin: 2px;
+    padding: 2px;
+    
     `
     
     return(
         <FilmBox>
-            <FilmLink></FilmLink>
+
+            <FilmLink>{films}</FilmLink>
 
         </FilmBox>
     )

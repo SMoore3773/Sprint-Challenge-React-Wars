@@ -2,179 +2,81 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import axios from 'axios';
 import Header from './components/Header'
+
+import DogBox from './components/DogBox'
 import CharacterCard from './components/CharacterCard'
 import styled from 'styled-components'
 import PersonButtons from './components/PersonButtons'
 
 const App = () => {
-  const [charList, setCharList] = useState();
-  const [person, setPerson] = useState(1)
-  const [personProf, setPersonProf] = useState({})
-//   useEffect(() => {
-//     axios
-//         .get(`https://swapi.co/api/people/${person}`)
-//         .then(response =>{
-
-//           // console.log(response.data);
-//           setPersonProf(response.data);
-          
-//         })
-//         .catch(err => {
-//             console.log('Error:', err);
-//         });
-
-// }, [person])
-useEffect(() => {
-  axios
-      .get(`https://swapi.co/api/people/`)
-      .then(response =>{
-
-        console.log(response.data.results[0].url);
-        setCharList(response.data.results);
-        
-      })
-      .catch(err => {
-          console.log('Error:', err);
-      });
-
-},[])
-
+  
+  //styling
   const App = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
   `
-  const CardBox = styled.div`
+  const Box = styled.div`
   display:flex;
-  flex-direction: row;
+  flex-direction:row;
   flex-flow:wrap;
-  `
-const CharacterCard = styled.div`
-width: 45%;
-`
+  justify-content:center;
+  margin:20px;
   
+  `
+  
+   
+//state
+  const [charList, setCharList] = useState([]);
+  const[beagle, setBeagle]=useState([]);
+//api pull
+  useEffect(()=>{
+    axios
+      .get(`https://swapi.co/api/people/`)
+      .then(response =>{
+        const chars = response.data.results;
+        // console.log(response.data);
+        setCharList(chars);
+        console.log(chars);
+        
+      })
+      .catch(err => {
+          console.log('Error:', err);
+      });
+  },[]);
+  useEffect(()=>{
+    axios
+    .get(`https://dog.ceo/api/breed/beagle/images/random/6`)
+    .then(res=>{
+      console.log(res.data.message)
+      setBeagle(res.data.message)
+    })
+    .catch(err=>{
+      console.log('error:',err)
+    })
+  },[])
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
   // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
-console.log(charList);
   return (
     <App>
       <Header />
-      <PersonButtons 
-      key = {person.id}
-      person = {person}
-      setPerson = {setPerson}
-      />
-      
-      <CardBox>
+      {/* <PersonButtons/> */}
+       <Box >
+        {charList.map((item,index)=> {
+          return <CharacterCard key={index} name={item.name} homeworld ={item.homeworld} birthYear = {item.birth_year} height={item.height} weight={item.mass} films = {item.films}/>;
+        })}
+      </Box>
+      <Box>
+        {beagle.map((item,index)=>{
+          return <DogBox key={index} img={item}/>
+        })}
 
-
-        {/* {charList.map(char => (
-          
-          <CharacterCard 
-            key = {char.id}
-            url = {char.url} 
-          />
-        ))}  */}
-        
-        </CardBox>
-
-
-
-
-        {/* {charList.map(personProf =>{
-            
-          <CharacterCard 
-          key={personProf.id}
-          name = {personProf.name}
-          homeworld = {personProf.homeworld}
-          species = {personProf.species}
-          birthYear = {personProf.birth_year}
-          gender = {personProf.gender}
-          height = {personProf.height}
-          mass = {personProf.mass}
-          films = {personProf.films}
-          /> */}
-
-
-        
-      
-
-        {/* {
-        Object.keys(charList).forEach(key =>{
-          const charByKey = personProf[key];
-
-
-          charByKey.map(per =>(
-
-            <CharacterCard 
-            key={per.id}
-            name = {per.name}
-            homeworld = {per.homeworld}
-            species = {per.species}
-            birthYear = {per.birth_year}
-            gender = {per.gender}
-            height = {per.height}
-            mass = {per.mass}
-            films = {per.films}
-            />
-  
-          ))
-        })
-        
-      } */}
-
-
-      {/* {charList.forEach(i =>{
-        
-        const [personProf, setPersonProf] = useState({})
-        useEffect(() => {
-          axios
-              .get(`https://swapi.co/api/people/${i}`)
-              .then(response =>{
-      
-                // console.log(response.data);
-                setPersonProf(response.data);
-                
-              })
-              .catch(err => {
-                  console.log('Error:', err);
-              });
-      
-      }, [person])
-
-
-
-        <CharacterCard 
-        key={personProf.id}
-        name = {personProf.name}
-        homeworld = {personProf.homeworld}
-        species = {personProf.species}
-        birthYear = {personProf.birth_year}
-        gender = {personProf.gender}
-        height = {personProf.height}
-        mass = {personProf.mass}
-        films = {personProf.films}
-        />
-      })} */}
-
-      
-      {/* <CharacterCard 
-      key={personProf.id}
-      name = {personProf.name}
-      homeworld = {personProf.homeworld}
-      species = {personProf.species}
-      birthYear = {personProf.birth_year}
-      gender = {personProf.gender}
-      height = {personProf.height}
-      mass = {personProf.mass}
-      films = {personProf.films}
-      /> */}
-
+      </Box>
     </App>
   );
 }

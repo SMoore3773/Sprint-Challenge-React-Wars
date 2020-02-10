@@ -1,58 +1,39 @@
 import React, {useState, useEffect,} from 'react';
 import styled from 'styled-components';
-import Films from './Films';
-import axios from 'axios';
-
+import Homeworld from './Homeworld'
+import Films from './Films'
 const CharacterCard = props => {
-const [hw, setHw] = useState()
-const [spe, setSpe] = useState()
-const [char, setChar]= useState()
-
-    useEffect(() => {
-    axios
-    .get(char.homeworld)
-    .then(response =>{
-        // console.log(response.data) 
-        setHw(response.data.name);  
-    })
-    .catch(err => {console.log('Error:', err);});
-    }, [])
-    useEffect(() => {
-        axios
-        .get(char.species)
-        .then(response =>{
-            // console.log(response.data) 
-            setSpe(response.data.name);  
-        })
-        .catch(err => {console.log('Error:', err);});
-        }, [])
-
-    useEffect(() =>{
-        axios
-        .get(props.url)
-        .then(response =>{
-            console.log(response)
-            
-        })
-        .catch(err =>{console.log('error:',err);})
-    },[])
-
+ const CharCard = styled.div`
+ display: flex;
+ flex-direction:column;
+ border-radius:10px;
+ margin:5px;
+ padding:5px;
+ background-color: rgba(255,255,255,.5);
+ box-shadow: 1px 1px 10px black;
+ width:40%;
+ text-align:center;
+ `
+ const CharName = styled.h2`
+ font-size: 30px;
+ `
     return (
-        <div>
-            <h2>{char.name}</h2>
-            <h4>{hw}</h4>
-            <p>Species: {spe}</p>
-            <p>Birth Year: {props.birthYear}</p>
-            <p>{props.gender}</p>
-            <p>Height: {props.height}cm</p>
-            <p>Mass: {props.mass}Kg</p>
-            <Films 
-            key = {props.id}
-            films = {props.films}
-            />
-            
+            <CharCard>
+                <CharName>{props.name}</CharName>
+                <Homeworld 
+                key = {props.id}
+                home = {props.homeworld}
+                />
+                <p>Birth Year: {props.birthYear}</p>
+                <p>Height: {props.height}cm</p>
+                <p>Weight: {props.weight}Kg</p>
+                <h4>Appeared In</h4>
+                {props.films.map((item,index)=>{
+                    return <Films key={index} filmsList={item}/>
+                })}
+            </CharCard>
 
-        </div>
+        
     );
 }
 
